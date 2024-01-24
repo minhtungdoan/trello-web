@@ -4,8 +4,6 @@ import HomeIcon from '@mui/icons-material/Home'
 import { Button } from '@mui/material'
 import { pink } from '@mui/material/colors'
 
-
-
 function App() {
 
   return (
