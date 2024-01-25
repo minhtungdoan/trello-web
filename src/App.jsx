@@ -9,6 +9,7 @@ function App() {
   return (
     <>
       <div>Minhtungdoan</div>
+      <div>Minhtungdoan</div>
       <Button variant="text">Text</Button>
       <Button variant="contained">Contained</Button>
       <Button variant="outlined">Outlined</Button> <br />
