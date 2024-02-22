@@ -7,8 +7,9 @@ function BoardContent() {
       alignItems: 'center',
       backgroundColor: 'primary.main',
       width: '100%',
-      height: (theme) => `calc(100vh-${theme.trello.appBarHeight}-${theme.trello.boardBarHeight})`
+      height: (theme) => `calc(100vh - ${theme.trello.appBarHeight} - ${theme.trello.boardBarHeight})`
     }}>
+      Board Content
     </Box>
   )
 }

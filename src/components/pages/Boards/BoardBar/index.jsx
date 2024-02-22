@@ -9,7 +9,7 @@ function BoardBar() {
       width: '100%',
       height: (theme) => theme.trello.boardBarHeight
     }}>
-      Board Content
+      Board Bar
     </Box>
   )
 }
