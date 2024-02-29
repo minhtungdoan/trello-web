@@ -22,7 +22,7 @@ function Profiles() {
 
   return (
     <div>
-    <Tooltip title="Account settings">
+      <Tooltip title="Account settings">
         <IconButton
           onClick={handleClick}
           size="small"
@@ -31,7 +31,11 @@ function Profiles() {
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
         >
-          <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+          <Avatar
+            sx={{ width: 36, height: 36 }}
+            alt="Bitcoin"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png"
+          ></Avatar>
         </IconButton>
       </Tooltip>
       <Menu
@@ -44,10 +48,18 @@ function Profiles() {
         }}
       >
         <MenuItem >
-          <Avatar sx={{ width: 28, height: 28, mr: 2 }}/> Profile
+          <Avatar
+            sx={{ width: 28, height: 28, mr: 2 }}
+            alt="Bitcoin"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1200px-Bitcoin.svg.png"
+          /> Profile
         </MenuItem>
         <MenuItem >
-          <Avatar sx={{ width: 28, height: 28, mr: 2 }}/> My account
+          <Avatar
+            sx={{ width: 28, height: 28, mr: 2 }}
+            alt="Bitcoin"
+            src="https://cdn.decrypt.co/wp-content/uploads/2019/03/ethereum.png"
+          /> Profile My account
         </MenuItem>
         <Divider />
         <MenuItem >
