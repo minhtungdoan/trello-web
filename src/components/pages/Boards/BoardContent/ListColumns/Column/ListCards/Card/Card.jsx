@@ -22,7 +22,8 @@ function Card({ card }) {
     // Nếu sử dụng CSS.Transform như docs sẽ lỗi kiểu stretch
     transform: CSS.Translate.toString(transform),
     transition,
-    opacity: isDragging ? 0.5 : 1
+    opacity: isDragging ? 0.5 : undefined,
+    border: isDragging ? '1px solid #2ecc71' : undefined
   }
 
   const shouldShowCardActions = !!card?.memberIds?.length || !!card?.comments?.length || !!card?.attachments?.length
@@ -33,7 +34,8 @@ function Card({ card }) {
       sx={{
         cursor: 'pointer',
         boxShadow: '0 1px 1px rgba(0, 0, 0, 0.2)',
-        overflow: 'unset'
+        overflow: 'unset',
+        display: card?.FE_PlaceholderCard ? 'none' : 'block'
       }}>
       {card?.cover &&<CardMedia sx={{ height: 140 }} image={card.cover}/>}
       <CardContent sx={{ p: 1.5, '&:last-child': { p: 1.5 } }}>
