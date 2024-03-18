@@ -10,6 +10,7 @@ import AttachmentIcon from '@mui/icons-material/Attachment'
 
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
+import theme from '~/theme'
 
 function Card({ card }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
@@ -35,7 +36,9 @@ function Card({ card }) {
         cursor: 'pointer',
         boxShadow: '0 1px 1px rgba(0, 0, 0, 0.2)',
         overflow: 'unset',
-        display: card?.FE_PlaceholderCard ? 'none' : 'block'
+        display: card?.FE_PlaceholderCard ? 'none' : 'block',
+        border: '1px solid transparent',
+        '&:hover': { borderColor: (theme => theme.palette.primary.main) }
       }}>
       {card?.cover &&<CardMedia sx={{ height: 140 }} image={card.cover}/>}
       <CardContent sx={{ p: 1.5, '&:last-child': { p: 1.5 } }}>
