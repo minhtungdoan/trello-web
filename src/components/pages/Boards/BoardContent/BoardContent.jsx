@@ -34,7 +34,8 @@ function BoardContent({
   createNewCard,
   moveColumns,
   moveCardInTheSameColumn,
-  moveCardToDifferentColumn
+  moveCardToDifferentColumn,
+  deleteColumnDetails
 }) {
   // Require the mouse to move by 10 pixels before activating
   // dùng pointerSensor thì phải kết hợp CSS touchAction: none; ở Column, nhưng còn bug
@@ -307,6 +308,7 @@ function BoardContent({
           columns={orderedColumns}
           createNewColumn={createNewColumn}
           createNewCard={createNewCard}
+          deleteColumnDetails={deleteColumnDetails}
         ></ListColumns>
         <DragOverlay dropAnimation={customDropAnimation}>
           {(!activeDragItemType && null)}

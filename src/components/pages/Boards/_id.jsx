@@ -13,13 +13,15 @@ import {
   fetchBoardDetailsAPI,
   moveCardToDifferentColumnAPI,
   updateBoardDetailsAPI,
-  updateColumnDetailsAPI
+  updateColumnDetailsAPI,
+  deleteColumnDetailsAPI
 } from '~/apis'
 import { generatePlaceholderCard } from '~/utils/formatters'
-import { isEmpty, set } from 'lodash'
+import { isEmpty } from 'lodash'
 import Box from '@mui/material/Box'
 import CircularProgress from '@mui/material/CircularProgress'
 import Typography from '@mui/material/Typography'
+import { toast } from 'react-toastify'
 
 
 function Board() {
@@ -70,9 +72,16 @@ function Board() {
     const newBoard = { ...board }
     const columnToUpdate = newBoard.columns.find(column => column._id === createdCard.columnId)
     if (columnToUpdate) {
-      columnToUpdate.cards.push(createdCard)
-      columnToUpdate.cardOrderIds.push(createdCard._id)
+      // Neu column rong thi xoa placeholder card di
+      if (columnToUpdate.cards.some(card => card.FE_PlaceholderCard)) {
+        columnToUpdate.cards = [createdCard]
+        columnToUpdate.cardOrderIds = [createdCard._id]
+      } else {
+        columnToUpdate.cards.push(createdCard)
+        columnToUpdate.cardOrderIds.push(createdCard._id)
+      }
     }
+    // console.log("🚀 ~ createNewCard ~ columnToUpdate:", columnToUpdate)
     setBoard(newBoard)
   }
 
@@ -111,14 +120,30 @@ function Board() {
     setBoard(newBoard)
 
     // call API
+    let prevCardOrderIds = dndOrderedCollumns.find(c => c._id === prevColumnId)?.cardOrderIds
+    // xu li van de khi keo card cuoi cung ra khoi column
+    if (prevCardOrderIds[0].includes('placeholder-card')) prevCardOrderIds = []
+
     moveCardToDifferentColumnAPI({
       currentCardId,
       prevColumnId,
-      prevCardOrderIds: dndOrderedCollumns.find(c => c._id === prevColumnId)?.cardOrderIds,
+      prevCardOrderIds,
       nextColumnId,
       nextCardOrderIds: dndOrderedCollumns.find(c => c._id === nextColumnId)?.cardOrderIds
     })
+  }
 
+  // Delete column
+  const deleteColumnDetails = (columnId) => {
+    // update state board
+    const newBoard = { ...board }
+    newBoard.columns = newBoard.columns.filter(column => column._id !== columnId)
+    newBoard.columnOrderIds = newBoard.columnOrderIds.filter(columnId => columnId !== columnId)
+    setBoard(newBoard)
+
+    deleteColumnDetailsAPI(columnId).then(res => {
+      toast.success(res?.deleteResult)
+    })
   }
 
   if (!board) {
@@ -142,11 +167,13 @@ function Board() {
       <BoardBar board={board}></BoardBar>
       <BoardContent
         board={board}
+
         createNewColumn={createNewColumn}
         createNewCard={createNewCard}
         moveColumns={moveColumns}
         moveCardInTheSameColumn={moveCardInTheSameColumn}
         moveCardToDifferentColumn={moveCardToDifferentColumn}
+        deleteColumnDetails={deleteColumnDetails}
       ></BoardContent>
     </Container>
   )
